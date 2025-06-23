@@ -95,7 +95,7 @@
 
     // Make an API call after 2 minutes
     fetch("https://jsonplaceholder.typicode.com/posts/1")
-      .then(res => res.text())
+      .then(res => res.json())
       .then(data => console.log("✅ API call after 2 mins:", data))
       .catch(err => console.error("❌ Failed API call:", err));
   }, 20000);
