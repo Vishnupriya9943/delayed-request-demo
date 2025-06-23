@@ -86,14 +86,21 @@
     <p><em>“Good things come to those who wait.”</em></p>
   </div>
 
-  <script>
-    // Simulate a 2-minute delay (120000 ms)
-    setTimeout(() => {
-      document.getElementById("spinner").style.display = "none";
-      document.getElementById("status").style.display = "none";
-      document.getElementById("book-content").style.display = "block";
-    }, 120000); // 2 minutes
-  </script>
+<script>
+  setTimeout(() => {
+    // Show content
+    document.getElementById("spinner").style.display = "none";
+    document.getElementById("status").style.display = "none";
+    document.getElementById("book-content").style.display = "block";
+
+    // Make an API call after 2 minutes
+    fetch("https://example.com/api/track-load")
+      .then(res => res.text())
+      .then(data => console.log("✅ API call after 2 mins:", data))
+      .catch(err => console.error("❌ Failed API call:", err));
+  }, 120000);
+</script>
+
 
 </body>
 </html>
