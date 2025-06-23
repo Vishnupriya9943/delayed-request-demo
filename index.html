@@ -13,7 +13,7 @@
     // Step 1: Start the request
     statusText.innerText = "Request sent... waiting for 2-minute response.";
 
-    fetch("https://httpstat.us/200?sleep=120000")
+    fetch("https://httpstat.us/200?sleep=60000")
       .then(response => response.text())
       .then(data => {
         // Step 2: After 2 minutes, response received
