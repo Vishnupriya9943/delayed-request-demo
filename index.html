@@ -162,25 +162,40 @@
 
 <script>
   async function validateAccess() {
-    const response = await fetch("https://wild-sky-3924.kesim97207.workers.dev/", {
-      method: "GET",
-      headers: {
-        "X-Auth-Token": "123456"  // ✅ Must match your worker token
-      }
-    });
+    const token = prompt("🔒 Enter your access token (or leave blank):");
 
-    if (response.ok) {
-      document.getElementById("spinner").style.display = "none";
-      document.getElementById("status").style.display = "none";
-      document.getElementById("book-content").style.display = "block";
-    } else {
-      document.getElementById("spinner").innerText = "❌ Unauthorized";
-      document.getElementById("status").innerText = "Access denied: Invalid token";
+    if (!token) {
+      document.getElementById("spinner").innerText = "⚠️ Token not provided";
+      document.getElementById("status").innerText = "Please provide a valid token to access the content.";
+      return;
+    }
+
+    try {
+      const response = await fetch("https://wild-sky-3924.kesim97207.workers.dev/", {
+        method: "GET",
+        headers: {
+          "X-Auth-Token": token
+        }
+      });
+
+      if (response.ok) {
+        document.getElementById("spinner").style.display = "none";
+        document.getElementById("status").style.display = "none";
+        document.getElementById("book-content").style.display = "block";
+      } else {
+        document.getElementById("spinner").innerText = "❌ Unauthorized";
+        document.getElementById("status").innerText = "Access denied: Invalid token";
+      }
+    } catch (err) {
+      console.error("Fetch error:", err);
+      document.getElementById("spinner").innerText = "❌ Network Error";
+      document.getElementById("status").innerText = "Could not validate access";
     }
   }
 
-  setTimeout(validateAccess, 2000);  // wait 2 sec for effect
+  setTimeout(validateAccess, 2000);
 </script>
+
 
 </body>
 </html>
