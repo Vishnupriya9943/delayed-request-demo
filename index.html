@@ -30,9 +30,7 @@
 
 
 
-
-
- <!DOCTYPE html>
+<!--  <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -104,3 +102,86 @@
 
 </body>
 </html>
+ -->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Book Store</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      text-align: center;
+      background-color: #f0f0f0;
+      padding: 60px 20px;
+    }
+    .spinner {
+      font-size: 24px;
+      color: #555;
+      animation: blink 1.5s infinite;
+    }
+    @keyframes blink {
+      0%   { opacity: 0.2; }
+      50%  { opacity: 1; }
+      100% { opacity: 0.2; }
+    }
+    #book-content {
+      display: none;
+      background-color: white;
+      padding: 30px;
+      margin: 20px auto;
+      max-width: 600px;
+      border-radius: 8px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    }
+    h1, h2 {
+      margin-bottom: 10px;
+    }
+    p {
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>📚 Welcome to My Book Store</h1>
+  <p id="status">Validating your access...</p>
+  <div class="spinner" id="spinner">⏳ Checking...</div>
+
+  <div id="book-content">
+    <h2>The Art of Waiting</h2>
+    <p><strong>Author:</strong> Vishnu Priya</p>
+    <p><strong>Description:</strong> This book is a journey through time, patience, and the beauty of delayed gratification. Whether you're waiting for answers, love, or coffee — this book is for you.</p>
+    <p><strong>Price:</strong> ₹299</p>
+    <p><em>“Good things come to those who wait.”</em></p>
+  </div>
+
+<script>
+  async function validateAccess() {
+    const response = await fetch("https://wild-sky-3924.kesim97207.workers.dev/", {
+      method: "GET",
+      headers: {
+        "X-Auth-Token": "123456"  // ✅ Must match your worker token
+      }
+    });
+
+    if (response.ok) {
+      document.getElementById("spinner").style.display = "none";
+      document.getElementById("status").style.display = "none";
+      document.getElementById("book-content").style.display = "block";
+    } else {
+      document.getElementById("spinner").innerText = "❌ Unauthorized";
+      document.getElementById("status").innerText = "Access denied: Invalid token";
+    }
+  }
+
+  setTimeout(validateAccess, 2000);  // wait 2 sec for effect
+</script>
+
+</body>
+</html>
+
